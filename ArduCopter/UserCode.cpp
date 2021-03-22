@@ -40,6 +40,15 @@ void Copter::userhook_SlowLoop()
 void Copter::userhook_SuperSlowLoop()
 {
     // put your 1Hz code here
+    // reference : https://ardupilot.org/dev/docs/debug-with-send-text.html
+    static uint16_t counter = 0;
+    counter++;
+    if(counter > 5){
+        counter = 0;
+        // send message to QGC/
+        gcs().send_text(MAV_SEVERITY_INFO,"cell 1  : %5.3f",0.5f);
+    }    
+    
 }
 #endif
 
