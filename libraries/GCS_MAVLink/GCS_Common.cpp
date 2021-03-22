@@ -4659,6 +4659,20 @@ void GCS_MAVLINK::send_generator_status() const
 #endif
 }
 
+void GCS_MAVLINK::send_pri_bat_info(float * buf)
+{
+    #ifndef MAVLINK_MSG_ID_PRI_BAT_INFO
+        mavlink_msg_pri_bat_info_send(
+            chan,
+            AP_HAL::millis();
+            *(buf),
+            *(buf+1),
+            *(buf+2),
+            *(buf+3) 
+        )
+    #endif
+}
+
 bool GCS_MAVLINK::try_send_message(const enum ap_message id)
 {
     bool ret = true;
