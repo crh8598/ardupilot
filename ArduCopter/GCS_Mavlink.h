@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GCS_MAVLink/GCS.h>
+#define MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
 class GCS_MAVLINK_Copter : public GCS_MAVLINK
 {

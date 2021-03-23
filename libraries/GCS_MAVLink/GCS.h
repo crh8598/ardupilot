@@ -270,7 +270,7 @@ public:
     virtual void send_winch_status() const {};
 
     // function for private mavlink msg - in common id: 227 pri_bat_info
-    void send_pri_bat_info(float * buf);
+    void send_pri_bat_info();
 
     // lock a channel, preventing use by MAVLink
     void lock(bool _lock) {

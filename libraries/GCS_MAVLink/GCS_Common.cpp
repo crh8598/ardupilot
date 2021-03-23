@@ -4659,16 +4659,16 @@ void GCS_MAVLINK::send_generator_status() const
 #endif
 }
 
-void GCS_MAVLINK::send_pri_bat_info(float * buf)
+void GCS_MAVLINK::send_pri_bat_info()
 {
     #ifndef MAVLINK_MSG_ID_PRI_BAT_INFO
         mavlink_msg_pri_bat_info_send(
             chan,
             AP_HAL::millis();
-            *(buf),
-            *(buf+1),
-            *(buf+2),
-            *(buf+3) 
+            4.0868f,
+            4.1145f,
+            4.1345f,
+            4.1378f 
         )
     #endif
 }
@@ -5026,6 +5026,10 @@ bool GCS_MAVLINK::try_send_message(const enum ap_message id)
     case MSG_WINCH_STATUS:
         CHECK_PAYLOAD_SIZE(WINCH_STATUS);
         send_winch_status();
+        break;
+
+    case MSG_PRI_VAT_INFO:
+        gcs().send_text(MAV_SEVERITY_INFO,"cell 1  : %5.3f",0.5f);  
         break;
 
     default:

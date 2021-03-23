@@ -398,7 +398,7 @@ const AP_Param::GroupInfo GCS_MAVLINK_Parameters::var_info[] = {
     // @Range: 0 50
     // @Increment: 1
     // @User: Advanced
-    AP_GROUPINFO("EXTRA3",   7, GCS_MAVLINK_Parameters, streamRates[7],  0),
+    AP_GROUPINFO("EXTRA3",   7, GCS_MAVLINK_Parameters, streamRates[8],  0),
 
     // @Param: PARAMS
     // @DisplayName: Parameter stream rate to ground station
@@ -442,6 +442,7 @@ static const ap_message STREAM_EXTENDED_STATUS_msgs[] = {
     MSG_FENCE_STATUS,
     MSG_POSITION_TARGET_GLOBAL_INT,
 };
+
 static const ap_message STREAM_POSITION_msgs[] = {
     MSG_LOCATION,
     MSG_LOCAL_POSITION
@@ -483,6 +484,7 @@ static const ap_message STREAM_EXTRA3_msgs[] = {
     MSG_ESC_TELEMETRY,
     MSG_GENERATOR_STATUS,
     MSG_WINCH_STATUS,
+    MSG_PRI_VAT_INFO
 };
 static const ap_message STREAM_PARAMS_msgs[] = {
     MSG_NEXT_PARAM

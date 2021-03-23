@@ -223,7 +223,6 @@ public:
     friend class ModeThrow;
     friend class ModeZigZag;
     friend class ModeAutorotate;
-
     Copter(void);
 
 private:
@@ -234,7 +233,7 @@ private:
     // Global parameters are all contained within the 'g' class.
     Parameters g;
     ParametersG2 g2;
-
+    UserParameters up1;
     // used to detect MAVLink acks from GCS to stop compassmot
     uint8_t command_ack_counter;
 
