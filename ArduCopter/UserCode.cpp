@@ -42,11 +42,19 @@ void Copter::userhook_SuperSlowLoop()
     // put your 1Hz code here
     // reference : https://ardupilot.org/dev/docs/debug-with-send-text.html
     static uint16_t counter = 0;
+    static float cells[4] = {0.0f,};
     counter++;
     if(counter > 5){
         counter = 0;
         // send message to QGC/
         gcs().send_text(MAV_SEVERITY_INFO,"cell 1  : %5.3f",0.5f);
+        uint8_t sysid;
+        uint8_t compid;
+        mavlink_channel_t chan;
+        
+        if (GCS_MAVLINK::find_by_mavtype(MAV_TYPE_ONBOARD_CONTROLLER, sysid, compid, chan)) {
+            gcs().chan(chan-MAVLINK_COMM_0)->send_pri_bat_info(cells);
+        }
     }    
     
 }
