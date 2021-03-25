@@ -48,7 +48,11 @@ void Copter::userhook_SuperSlowLoop()
         counter = 0;
         // send message to QGC/
         // gcs().send_text(MAV_SEVERITY_INFO,"cell 1  : %5.3f",0.5f);
-        if(!up1.Cell_change(cells,4)) {gcs().send_text(MAV_SEVERITY_INFO,"cell dat fix failed");};
+        
+        if(up1.Cell_change(cells,4)) { 
+            gcs().send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
+            gcs().send_text(MAV_SEVERITY_WARNING, "ASTROX BMS in operation...");
+        } // copter.g2.user_parameters -> expected position of parameter 
     }    
     
 }
