@@ -398,7 +398,7 @@ const AP_Param::GroupInfo GCS_MAVLINK_Parameters::var_info[] = {
     // @Range: 0 50
     // @Increment: 1
     // @User: Advanced
-    AP_GROUPINFO("EXTRA3",   7, GCS_MAVLINK_Parameters, streamRates[8],  0),
+    AP_GROUPINFO("EXTRA3",   7, GCS_MAVLINK_Parameters, streamRates[7],  0),
 
     // @Param: PARAMS
     // @DisplayName: Parameter stream rate to ground station

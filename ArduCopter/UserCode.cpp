@@ -51,7 +51,8 @@ void Copter::userhook_SuperSlowLoop()
         
         if(up1.Cell_change(cells,4)) { 
             gcs().send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
-            gcs().send_text(MAV_SEVERITY_WARNING, "ASTROX BMS in operation...");
+            // gcs().send_text(MAV_SEVERITY_WARNING, "ASTROX BMS in operation...");
+            gcs().send_message(MSG_PRI_BAT_INFO);
         } // copter.g2.user_parameters -> expected position of parameter 
     }    
     
