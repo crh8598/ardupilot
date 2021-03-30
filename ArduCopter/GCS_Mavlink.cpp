@@ -12,6 +12,7 @@
  *  pattern below when adding any new messages
  */
 
+
 MAV_TYPE GCS_Copter::frame_type() const
 {
     if (copter.motors == nullptr) {

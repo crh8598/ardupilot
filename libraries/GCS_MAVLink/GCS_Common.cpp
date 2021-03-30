@@ -4665,12 +4665,13 @@ void GCS_MAVLINK::send_pri_bat_info()
         mavlink_msg_pri_bat_info_send(
             chan,
             AP_HAL::millis(),
-            4.0868f,
-            4.1145f,
-            4.1345f,
-            4.1378f 
+            gcs().cell[0],
+            gcs().cell[1],
+            gcs().cell[2],
+            gcs().cell[3]
         );
 }
+
 
 bool GCS_MAVLINK::try_send_message(const enum ap_message id)
 {

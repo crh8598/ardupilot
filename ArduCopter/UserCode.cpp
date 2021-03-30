@@ -36,6 +36,7 @@ void Copter::userhook_SlowLoop()
 }
 #endif
 
+const float cellInit[]= {4.0854f,4.1104f,4.1324f,4.1435f};
 #ifdef USERHOOK_SUPERSLOWLOOP
 void Copter::userhook_SuperSlowLoop()
 {
@@ -45,15 +46,17 @@ void Copter::userhook_SuperSlowLoop()
     static float cells[4] = {4.0854f,4.1104f,4.1324f,4.1435f};
     counter++;
     if(counter > 5){
-        counter = 0;
-        // send message to QGC/
-        // gcs().send_text(MAV_SEVERITY_INFO,"cell 1  : %5.3f",0.5f);
+        counter = 0;        
+        gcs().send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
+        gcs().update_BMS_cells(cells);
+        gcs().send_message(MSG_PRI_BAT_INFO);
+        for(int i = 0 ;i<4;i++)
+        {
+            cells[i] += 0.001;
+            if(cells[i] > 4.21) cells[i] = cellInit[i];
+        }
         
-        if(up1.Cell_change(cells,4)) { 
-            gcs().send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
-            // gcs().send_text(MAV_SEVERITY_WARNING, "ASTROX BMS in operation...");
-            gcs().send_message(MSG_PRI_BAT_INFO);
-        } // copter.g2.user_parameters -> expected position of parameter 
+
     }    
     
 }
