@@ -4660,17 +4660,27 @@ void GCS_MAVLINK::send_generator_status() const
 #endif
 }
 
-void GCS_MAVLINK::send_pri_bat_info()
-{
-        mavlink_msg_pri_bat_info_send(
-            chan,
-            AP_HAL::millis(),
-            gcs().cell[0],
-            gcs().cell[1],
-            gcs().cell[2],
-            gcs().cell[3]
-        );
-}
+// void GCS_MAVLINK::update_BMS_cells(float *buf)
+// {
+//     cell[0] = *buf;
+//     cell[1] = *(buf+1);
+//     cell[2] = *(buf+2);
+//     cell[3] = *(buf+3);
+// }
+
+// void GCS_MAVLINK::send_pri_bat_info()
+// {
+    
+//         mavlink_msg_pri_bat_info_send(
+//             chan,
+//             AP_HAL::millis(),
+//             cell[0],
+//             cell[1],
+//             cell[2],
+//             cell[3]
+//         );
+//         send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
+// }
 
 
 bool GCS_MAVLINK::try_send_message(const enum ap_message id)
@@ -5028,10 +5038,10 @@ bool GCS_MAVLINK::try_send_message(const enum ap_message id)
         send_winch_status();
         break;
 
-    case MSG_PRI_BAT_INFO:
-        CHECK_PAYLOAD_SIZE(PRI_BAT_INFO);
-        send_pri_bat_info();
-        break;
+    // case MSG_PRI_BAT_INFO:
+    //     CHECK_PAYLOAD_SIZE(PRI_BAT_INFO);
+    //     send_pri_bat_info();
+    //     break;
 
     default:
         // try_send_message must always at some stage return true for

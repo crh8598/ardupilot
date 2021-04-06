@@ -9,6 +9,7 @@ class GCS_MAVLINK_Copter : public GCS_MAVLINK
 public:
 
     using GCS_MAVLINK::GCS_MAVLINK;
+        // Astrox BMS Cells variable
 
 protected:
 
@@ -44,8 +45,11 @@ protected:
     virtual MAV_VTOL_STATE vtol_state() const override { return MAV_VTOL_STATE_MC; };
     virtual MAV_LANDED_STATE landed_state() const override;
 
-    // Astrox BMS Cells variable
-    
+    void update_BMS_cells(float *buf) override;
+    void send_pri_bat_info() override;   
+
+      
+
 
 private:
 

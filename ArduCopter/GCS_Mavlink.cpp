@@ -296,13 +296,15 @@ bool GCS_MAVLINK_Copter::try_send_message(enum ap_message id)
         CHECK_PAYLOAD_SIZE(WIND);
         send_wind();
         break;
+    case MSG_PRI_BAT_INFO:
+        CHECK_PAYLOAD_SIZE(PRI_BAT_INFO);
+        send_pri_bat_info();
 
     case MSG_SERVO_OUT:
     case MSG_AOA_SSA:
     case MSG_LANDING:
         // unused
         break;
-
     case MSG_ADSB_VEHICLE: {
 #if HAL_ADSB_ENABLED
         CHECK_PAYLOAD_SIZE(ADSB_VEHICLE);
@@ -319,8 +321,8 @@ bool GCS_MAVLINK_Copter::try_send_message(enum ap_message id)
         }
 #endif
         break;
-    }
 
+    }
     default:
         return GCS_MAVLINK::try_send_message(id);
     }
@@ -485,7 +487,6 @@ static const ap_message STREAM_EXTRA3_msgs[] = {
     MSG_ESC_TELEMETRY,
     MSG_GENERATOR_STATUS,
     MSG_WINCH_STATUS,
-    MSG_PRI_BAT_INFO
 };
 static const ap_message STREAM_PARAMS_msgs[] = {
     MSG_NEXT_PARAM
@@ -1421,4 +1422,26 @@ void GCS_MAVLINK_Copter::send_wind() const
         degrees(atan2f(-wind.y, -wind.x)),
         wind.length(),
         wind.z);
+}
+
+void GCS_MAVLINK_Copter::update_BMS_cells(float *buf)
+{
+    cell[0] = *buf;
+    cell[1] = *(buf+1);
+    cell[2] = *(buf+2);
+    cell[3] = *(buf+3);
+}
+
+void GCS_MAVLINK_Copter::send_pri_bat_info()
+{
+    
+    mavlink_msg_pri_bat_info_send(
+        chan,
+        AP_HAL::millis(),
+        cell[0],
+        cell[1],
+        cell[2],
+        cell[3]
+    );
+    send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
 }

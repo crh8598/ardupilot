@@ -14,13 +14,6 @@ extern const AP_HAL::HAL& hal;
 
 //Astrox BMS functions 
 
-void GCS::update_BMS_cells(float *buf)
-{
-    gcs().cell[0] = *buf;
-    gcs().cell[1] = *(buf+1);
-    gcs().cell[2] = *(buf+2);
-    gcs().cell[3] = *(buf+3);
-}
 
 void GCS::get_sensor_status_flags(uint32_t &present,
                                   uint32_t &enabled,

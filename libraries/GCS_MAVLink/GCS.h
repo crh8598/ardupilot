@@ -95,9 +95,6 @@ class GCS_MAVLINK
 public:
     friend class GCS;
 
-    // Astrox BMS cells value
-    float cell[4] = {4.0868f,4.1145f, 4.1345f,4.1378f };
-
     GCS_MAVLINK(GCS_MAVLINK_Parameters &parameters, AP_HAL::UARTDriver &uart);
     virtual ~GCS_MAVLINK() {}
 
@@ -272,9 +269,11 @@ public:
     void send_generator_status() const;
     virtual void send_winch_status() const {};
 
-    // function for private mavlink msg - in common id: 227 pri_bat_info
-    void send_pri_bat_info();
-
+    //astrox BMS cell update function
+    float cell[4];
+    virtual void update_BMS_cells(float *buf){};
+    virtual void send_pri_bat_info() {};
+    
     // lock a channel, preventing use by MAVLink
     void lock(bool _lock) {
         _locked = _lock;
@@ -964,10 +963,6 @@ public:
     MAV_RESULT set_message_interval(uint8_t port_num, uint32_t msg_id, int32_t interval_us);
 
     uint8_t get_channel_from_port_number(uint8_t port_num);
-
-    //astrox BMS cell update function
-    float cell[4];
-    void update_BMS_cells(float *buf);
 
 
 protected:
