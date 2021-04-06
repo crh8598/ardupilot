@@ -1424,24 +1424,26 @@ void GCS_MAVLINK_Copter::send_wind() const
         wind.z);
 }
 
-void GCS_MAVLINK_Copter::update_BMS_cells(float *buf)
-{
-    cell[0] = *buf;
-    cell[1] = *(buf+1);
-    cell[2] = *(buf+2);
-    cell[3] = *(buf+3);
-}
+//astrox BMS function block 
+
 
 void GCS_MAVLINK_Copter::send_pri_bat_info()
 {
-    
     mavlink_msg_pri_bat_info_send(
         chan,
-        AP_HAL::millis(),
+        micros(),
         cell[0],
         cell[1],
         cell[2],
         cell[3]
     );
     send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
+}
+
+void GCS_MAVLINK_Copter::update_BMS_cells(float *buf)
+{
+    for(uint8_t i =0; i<4;i++)
+    {
+        cell[i] = buf[i];
+    }
 }

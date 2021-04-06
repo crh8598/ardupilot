@@ -45,11 +45,8 @@ protected:
     virtual MAV_VTOL_STATE vtol_state() const override { return MAV_VTOL_STATE_MC; };
     virtual MAV_LANDED_STATE landed_state() const override;
 
-    void update_BMS_cells(float *buf) override;
-    void send_pri_bat_info() override;   
-
-      
-
+    void send_pri_bat_info() override;
+    void update_BMS_cells(float *buf) override;   
 
 private:
 

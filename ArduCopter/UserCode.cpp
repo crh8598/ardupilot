@@ -53,12 +53,11 @@ void Copter::userhook_SuperSlowLoop()
             cells[i] += 0.001;
             if(cells[i] > 4.21) cells[i] = cellInit[i];
         }
-        // for(uint8_t i  =0; i<gcs().num_gcs(); i++)
-        // {
-            gcs()._chan[0]->update_BMS_cells(cells);
-            gcs()._chan[0]->send_pri_bat_info();
-        // }
-        
+        for(int i =0; i<gcs().num_gcs();i++) 
+        {
+            gcs()._chan[i]->update_BMS_cells(cells);
+        }
+        gcs().send_message(MSG_PRI_BAT_INFO);
         
     }    
     
