@@ -1437,7 +1437,7 @@ void GCS_MAVLINK_Copter::send_pri_bat_info()
         cell[2],
         cell[3]
     );
-    send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
+    // send_text(MAV_SEVERITY_DEBUG, "ASTROX BMS - cell data updated "); 
 }
 
 void GCS_MAVLINK_Copter::update_BMS_cells(float *buf)
